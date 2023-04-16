@@ -23,7 +23,15 @@ function Delete(){
 }
 
 function calculate(){
-    
-        outputdisplay.value = eval(outputdisplay.value); 
+    if(outputdisplay.value.length>=1)
+    {
+     try {
+        outputdisplay.value = eval(outputdisplay.value);
+     } catch (error) {
+        alert("invalid value");
+     }}
+    else{
+        alert("enter value")
+     }    
 }
 
