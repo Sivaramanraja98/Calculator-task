@@ -26,6 +26,13 @@ function calculate(){
     if(outputdisplay.value.length>=1)
     {
      try {
+         const key = event.key;
+
+    // Check if the key is an alphabet or a symbol other than +, -, *, and /
+    if (/[a-zA-Z]/.test(key) || /[^+\-*/=0-9]/.test(key)) {
+        alert("Invalid input! Only numbers and operators (+, -, *, /) are allowed.");
+        event.preventDefault(); // Prevent the default action of typing the invalid character
+    }
         outputdisplay.value = eval(outputdisplay.value);
      } catch (error) {
         alert("invalid value");
@@ -35,12 +42,4 @@ function calculate(){
      }    
 }
 
-function checkKeyPress(event) {
-    const key = event.key;
 
-    // Check if the key is an alphabet or a symbol other than +, -, *, and /
-    if (/[a-zA-Z]/.test(key) || /[^+\-*/=0-9]/.test(key)) {
-        alert("Invalid input! Only numbers and operators (+, -, *, /) are allowed.");
-        event.preventDefault(); // Prevent the default action of typing the invalid character
-    }
-}
