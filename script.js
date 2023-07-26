@@ -1,45 +1,53 @@
-let outputdisplay=document.getElementById("result");
+let outputdisplay = document.getElementById("result");
 
-function Display(num){
-    if(isNaN(num)){
-        alert("invalidinput! Please enter a number")
+function isValidInput(key) {
+    // Regular expression to match valid characters (numbers and operators)
+    const validInputRegex = /[0-9+\-*/.]/;
+    return validInputRegex.test(key);
+}
+
+function Display(num) {
+    if (!isValidInput(num)) {
+        alert("Invalid input! Please enter a number or an operator (+, -, *, /)");
+    } else {
+        outputdisplay.value += num;
     }
-    else{
-    outputdisplay.value += num;
+}
+
+function display(operator) {
+    if (!isValidInput(operator)) {
+        alert("Invalid input! Please enter an operator (+, -, *, /)");
+    } else {
+        outputdisplay.value += operator;
     }
 }
 
-function display(num){
-
-    outputdisplay.value += num;
+function Clear() {
+    outputdisplay.value = '';
 }
 
-function Clear(){
-    outputdisplay.value='';
+function Delete() {
+    outputdisplay.value = outputdisplay.value.slice(0, -1);
 }
 
-function Delete(){
-    outputdisplay.value=outputdisplay.value.slice(0,-1);
-}
-
-function calculate(){
-    if(outputdisplay.value.length>=1)
-    {
-     try {
-         const key = event.key;
-
-    // Check if the key is an alphabet or a symbol other than +, -, *, and /
-    if (/[a-zA-Z]/.test(key) || /[^+\-*/=0-9]/.test(key)) {
-        alert("Invalid input! Only numbers and operators (+, -, *, /) are allowed.");
-        event.preventDefault(); // Prevent the default action of typing the invalid character
+function calculate() {
+    if (outputdisplay.value.length >= 1) {
+        try {
+            outputdisplay.value = eval(outputdisplay.value);
+        } catch (error) {
+            alert("Invalid value");
+        }
+    } else {
+        alert("Enter value");
     }
-        outputdisplay.value = eval(outputdisplay.value);
-     } catch (error) {
-        alert("invalid value");
-     }}
-    else{
-        alert("enter value")
-     }    
 }
 
-
+// Add the onkeypress event to the input field
+outputdisplay.addEventListener("keypress", function (event) {
+    const key = event.key;
+    if (!isValidInput(key)) {
+        event.preventDefault(); // Prevent the invalid character from being typed
+        alert("Invalid input! Please enter a number or an operator (+, -, *, /)");
+    }
+});
+                
